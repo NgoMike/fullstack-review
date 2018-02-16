@@ -16,6 +16,7 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     // TODO
+    this.setState({repos: this.state.repos.push(term)});
   }
 
   render () {
