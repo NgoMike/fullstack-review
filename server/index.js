@@ -14,9 +14,8 @@ app.post('/repos', function (req, res) {
     body.push(chunk);
   }).on('end', () => {
     body = Buffer.concat(body).toString();
+    res.send(body);
   });
-
-  res.json(req.body)
 });
 
 app.get('/repos', function (req, res) {

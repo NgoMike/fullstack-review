@@ -9,14 +9,30 @@ class App extends React.Component {
     super(props);
     this.state = { 
       repos: []
-    }
-
+    },
+    this.componentDidMount = this.componentDidMount.bind(this);
+  }
+  // post to server with ajax at port 1128
+  componentDidMount() {
+    $.ajax({
+      type: 'POST',
+      url: '/repos',
+      dataType: 'text',
+      success: function (data) {
+        return data;
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
   }
 
   search (term) {
     console.log(`${term} was searched`);
     // TODO
-    this.setState({repos: this.state.repos.push(term)});
+    this.setState({
+      repos: this.state.repos = term
+    });
   }
 
   render () {
