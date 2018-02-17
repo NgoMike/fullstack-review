@@ -9,13 +9,12 @@ class App extends React.Component {
     super(props);
     this.state = { 
       repos: []
-    },
-    this.componentDidMount = this.componentDidMount.bind(this);
+    }
   }
   // post to server with ajax at port 1128
   componentDidMount() {
     $.ajax({
-      type: 'POST',
+      type: 'GET',
       url: '/repos',
       dataType: 'text',
       success: function (data) {
@@ -28,11 +27,25 @@ class App extends React.Component {
   }
 
   search (term) {
-    console.log(`${term} was searched`);
-    // TODO
-    this.setState({
-      repos: this.state.repos = term
+    let data = JSON.stringify({userName: term});
+    console.log(data);
+    $.ajax({
+      type: 'POST',
+      url: '/repos',
+      data: data,
+      contentType: 'application/json',
+      success: function (data) {
+        console.log('Post successful.');
+        console.log(`${data} was searched`);
+      },
+      error: function(error) {
+        console.log(error);
+      }
     });
+
+      // TODO
+      // push doesnt work for states so need to concat term into array
+      // this.setState({ repos: this.state.repos.concat(term)
   }
 
   render () {

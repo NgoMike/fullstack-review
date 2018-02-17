@@ -1,4 +1,6 @@
 const express = require('express');
+const { save } = require('../database/index.js');
+const { getReposByUsername } = require('../helpers/github.js');
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -14,7 +16,13 @@ app.post('/repos', function (req, res) {
     body.push(chunk);
   }).on('end', () => {
     body = Buffer.concat(body).toString();
-    res.send(body);
+    getReposByUsername(body, (data) => {
+      // console.log(typeof data);
+      save(data);
+    });
+      body = JSON.parse(body);
+      res.status(201);
+      res.send(body.userName);
   });
 });
 
