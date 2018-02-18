@@ -1,5 +1,5 @@
 const express = require('express');
-const { save } = require('../database/index.js');
+const { save, fetch } = require('../database/index.js');
 const { getReposByUsername } = require('../helpers/github.js');
 let app = express();
 
@@ -29,6 +29,7 @@ app.post('/repos', function (req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  fetch(req.body);
   res.send()
 });
 

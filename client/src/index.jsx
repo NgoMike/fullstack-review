@@ -16,9 +16,9 @@ class App extends React.Component {
     $.ajax({
       type: 'GET',
       url: '/repos',
-      dataType: 'text',
-      success: function (data) {
-        return data;
+      dataType: 'application/json',
+      success: (data) => {
+        this.setState({ repos: data });
       },
       error: function (error) {
         console.log(error);
@@ -28,7 +28,6 @@ class App extends React.Component {
 
   search (term) {
     let data = JSON.stringify({userName: term});
-    console.log(data);
     $.ajax({
       type: 'POST',
       url: '/repos',

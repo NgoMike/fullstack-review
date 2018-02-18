@@ -11,6 +11,15 @@ let repoSchema = mongoose.Schema({
 // repo is a mongoose model and repoSchema
 let Repo = mongoose.model('Repo', repoSchema);
 
+let fetch = (callback) => {
+  Repo.find( (err, repos) => {
+    if (err) {
+      console.log(err);
+    }
+    callback(repos, null); 
+  }).limit(25);
+}
+
 let save = (data, callback) => {
   // TODO: Your code here
   // This function should save a repo or repos to
@@ -37,3 +46,4 @@ let save = (data, callback) => {
 }
 
 module.exports.save = save;
+module.exports.fetch = fetch;
